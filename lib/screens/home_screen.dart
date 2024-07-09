@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:ya9in/datas/category_json.dart';
+import 'package:ya9in/datas/course_json.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/clipper.dart';
+import 'package:ya9in/widgets/custom_categories_button.dart';
 import 'package:ya9in/widgets/custom_category_card.dart';
+import 'package:ya9in/widgets/custom_course_card.dart';
+import 'package:ya9in/widgets/custom_promotion_card.dart';
 import 'package:ya9in/widgets/custom_search_field.dart';
+import 'package:ya9in/widgets/custom_title.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -89,6 +95,124 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               )
             ],
+          ),
+
+          // Promotion card
+          SizedBox(height: 50),
+          CustomPromotionCard(),
+
+          // featured courses
+          SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.only(right: 25, left: 25),
+            child: CustomTitle(title: "Featured Courses"),
+          ),
+
+          // The Featurd Courses
+          SizedBox(height: 30),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 25, top: 10, bottom: 30),
+              child: Row(
+                  children: List.generate(
+                CoursesJson.length,
+                (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: CustomCourseCardExpand(
+                      thumbNail: CoursesJson[index]['image'],
+                      videoAmount: CoursesJson[index]['video'],
+                      title: CoursesJson[index]['title'],
+                      userProfile: CoursesJson[index]['user_profile'],
+                      userName: CoursesJson[index]['user_name'],
+                      price: CoursesJson[index]['price'],
+                    ),
+                  );
+                },
+              )),
+            ),
+          ),
+
+          // categories
+          SizedBox(height: 30),
+          Padding(
+            padding: const EdgeInsets.only(left: 25, right: 25),
+            child: CustomTitle(
+              title: "Categories",
+            ),
+          ),
+          SizedBox(height: 30),
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: List.generate(
+                        CategoryJson.length,
+                        (index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 5, bottom: 5),
+                            child: CustomCategoriesButton(
+                              title: CategoryJson[index]['title'],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Row(
+                      children: List.generate(
+                        CategoryJson.length,
+                        (index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 5, bottom: 5),
+                            child: CustomCategoriesButton(
+                              title: CategoryJson2[index]['title'],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ]),
+            ),
+          ),
+
+          // special courses
+          SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.only(right: 25, left: 25),
+            child: CustomTitle(title: "Design Courses"),
+          ),
+
+          // The special Courses
+          SizedBox(height: 30),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 25, top: 10, bottom: 30),
+              child: Row(
+                  children: List.generate(
+                CoursesJson.length,
+                (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: CustomCourseCardExpand(
+                      thumbNail: CoursesJson[index]['image'],
+                      videoAmount: CoursesJson[index]['video'],
+                      title: CoursesJson[index]['title'],
+                      userProfile: CoursesJson[index]['user_profile'],
+                      userName: CoursesJson[index]['user_name'],
+                      price: CoursesJson[index]['price'],
+                    ),
+                  );
+                },
+              )),
+            ),
           ),
         ],
       ),
