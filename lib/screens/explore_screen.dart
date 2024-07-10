@@ -69,7 +69,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 AllCategories.length,
                 (index) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(bottom: 10),
                     child: CunstomPlaceHolder(
                       title: AllCategories[index]['title'],
                     ),
