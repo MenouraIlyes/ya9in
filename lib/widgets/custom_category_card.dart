@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/svg.dart';
 import 'package:ya9in/datas/category_json.dart';
 import 'package:ya9in/shared/colors.dart';
 
@@ -53,12 +53,12 @@ class CustomCategoryCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    // child: Container(
-                    //   child: SvgPicture.asset(
-                    //     HomePageCategoryJson[index]['icon'],
-                    //     width: 15.0,
-                    //   ),
-                    // ),
+                    child: Container(
+                      child: SvgPicture.asset(
+                        HomePageCategoryJson[index]['icon'],
+                        width: 15.0,
+                      ),
+                    ),
                   ),
                   Text(
                     HomePageCategoryJson[index]['title'],

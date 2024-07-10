@@ -39,7 +39,7 @@ class _RootAppState extends State<RootApp> {
 
     // course
     GButton(
-      icon: Icons.play_arrow_rounded,
+      icon: Icons.play_circle_outline,
       text: 'Course',
     ),
     // idk
