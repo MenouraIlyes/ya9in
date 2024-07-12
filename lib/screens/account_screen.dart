@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ya9in/datas/account_menu_json.dart';
+import 'package:ya9in/screens/login_screen.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
 import 'package:ya9in/widgets/custom_place_holder.dart';
@@ -55,6 +56,14 @@ class _AccountScreenState extends State<AccountScreen> {
             SizedBox(height: 50),
             CustomButtonBox(
               title: 'Sign in',
+              isDisabled: false,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginScreen(),
+                    ));
+              },
             ),
           ],
         ),
