@@ -1,0 +1,240 @@
+import 'package:flutter/material.dart';
+import 'package:ya9in/screens/home_screen.dart';
+import 'package:ya9in/shared/colors.dart';
+import 'package:ya9in/widgets/custom_button.dart';
+import 'package:ya9in/widgets/custom_heading.dart';
+import 'package:ya9in/widgets/custom_textfield.dart';
+
+class UserInfoScreen extends StatefulWidget {
+  const UserInfoScreen({super.key});
+
+  @override
+  State<UserInfoScreen> createState() => _UserInfoScreenState();
+}
+
+class _UserInfoScreenState extends State<UserInfoScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
+  String nameText = '';
+  String ageText = '';
+  String selectedRole = '';
+
+  void openRoleSelection(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(
+                child: Container(
+                  width: 50,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.only(left: 12),
+                child: Text(
+                  'Select your Role',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: appPrimary,
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Divider(
+                indent: 25,
+                endIndent: 25,
+                color: appPrimary,
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.attach_money,
+                  color: appPrimary,
+                ),
+                title: Text(
+                  'Student',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(context, 'Student');
+                },
+              ),
+              Divider(
+                indent: 25,
+                endIndent: 25,
+                color: appPrimary,
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.credit_card,
+                  color: appPrimary,
+                ),
+                title: Text(
+                  'Professor',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(context, 'Professor');
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    ).then((value) {
+      if (value != null) {
+        // Restaurant restaurant = Provider.of<Restaurant>(context, listen: false);
+        // // Update payment method based on user selection
+        // setState(() {
+        //   restaurant
+        //       .setPaymentMethod(value); // Assuming restaurant is your Provider
+        // });
+      }
+    });
+  }
+
+  Widget getBody() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Column(
+          children: [
+            // header
+            SizedBox(height: 30),
+            CustomHeading(
+              title: 'Personal Information',
+              color: Colors.black,
+              subTitle:
+                  'Please fill up the form below with your informations to get you started!',
+            ),
+
+            // Illustration
+            SizedBox(height: 30),
+            Center(
+              child: Image.asset(
+                'assets/info.png',
+                width: 250,
+              ),
+            ),
+
+            // Name
+            SizedBox(height: 20),
+            CustomTextfield(
+              controller: _nameController,
+              labelText: 'Name',
+              onChanged: (value) {
+                setState(() {
+                  nameText = value;
+                });
+              },
+            ),
+
+            // Age
+            SizedBox(height: 20),
+            CustomTextfield(
+              controller: _ageController,
+              labelText: 'Age',
+              onChanged: (value) {
+                setState(() {
+                  ageText = value;
+                });
+              },
+            ),
+
+            // Role
+            SizedBox(height: 20),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              width: MediaQuery.of(context).size.width,
+              height: 70,
+              decoration: BoxDecoration(
+                color: appSecondary,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Role',
+                        style: TextStyle(
+                          fontSize: 19,
+                          color: appWhite,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          openRoleSelection(context);
+                        },
+                        child: Text(
+                          "Change",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: appWhite,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            // confirm Button
+            SizedBox(height: 30),
+            CustomButtonBox(
+              title: 'Confirm',
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    ));
+              },
+              isDisabled: nameText.isEmpty || ageText.isEmpty,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+      ),
+      body: getBody(),
+    );
+  }
+}

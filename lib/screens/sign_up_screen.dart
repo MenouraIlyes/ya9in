@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ya9in/screens/otp_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
@@ -64,7 +65,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(height: 30),
             CustomButtonBox(
               title: 'Continue',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OtpScreen(),
+                    ));
+              },
               isDisabled: phoneNumberText.length < 9,
             ),
 
