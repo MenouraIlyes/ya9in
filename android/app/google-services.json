@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "501490669132",
+    "project_id": "yakin-learning",
+    "storage_bucket": "yakin-learning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501490669132:android:868291e7f946d947ec06e9",
+        "android_client_info": {
+          "package_name": "com.example.ya9in"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVJrLSlzPfeO3Dlklm9E0Ta16UID42hJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

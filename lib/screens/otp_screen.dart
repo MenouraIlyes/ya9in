@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ya9in/screens/home_screen.dart';
-import 'package:ya9in/screens/user_info_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:ya9in/root_app.dart';
+import 'package:ya9in/services/phone_verification_provider.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 
 class OtpScreen extends StatefulWidget {
-  // final String verificationId;
+  final String verificationId;
   const OtpScreen({
     super.key,
+    required this.verificationId,
   });
 
   @override
@@ -19,27 +21,28 @@ class _OtpScreenState extends State<OtpScreen> {
   String? otpCode;
 
   // verify otp
-  // void verifyOtp(BuildContext context, String userOtp) {
-  //   final ap = Provider.of<PhoneVerification>(context, listen: false);
-  //   ap.verifyOtp(
-  //       context: context,
-  //       verificationId: widget.verificationId,
-  //       userOtp: userOtp,
-  //       onSuccess: () {
-  //         // Navigate to the checkout screen
-  //         Navigator.push(
-  //           context,
-  //           MaterialPageRoute(
-  //             builder: (context) => HomeScreen(),
-  //           ),
-  //         );
-  //       });
-  // }
+  void verifyOtp(BuildContext context, String userOtp) {
+    final ap = Provider.of<PhoneVerification>(context, listen: false);
+    ap.verifyOtp(
+        context: context,
+        verificationId: widget.verificationId,
+        userOtp: userOtp,
+        onSuccess: () {
+          // Navigate to the root app
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RootApp(),
+            ),
+            (route) => false,
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = false;
-    // Provider.of<PhoneVerification>(context, listen: true).isLoading;
+    final isLoading =
+        Provider.of<PhoneVerification>(context, listen: true).isLoading;
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -48,7 +51,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   alignment: Alignment.center,
                   child: Center(
                     child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.background,
+                      color: appBackground,
                     ),
                   ),
                 )
@@ -116,15 +119,10 @@ class _OtpScreenState extends State<OtpScreen> {
                         ),
                         const SizedBox(height: 25),
                         CustomButtonBox(
+                          color: appPrimary,
                           onTap: () {
                             if (otpCode != null && otpCode!.length == 6) {
-                              // verifyOtp(context, otpCode!);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => UserInfoScreen(),
-                                ),
-                              );
+                              verifyOtp(context, otpCode!);
                             } else {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(

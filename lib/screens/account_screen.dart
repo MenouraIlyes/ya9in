@@ -1,20 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:ya9in/datas/account_menu_json.dart';
 import 'package:ya9in/screens/login_screen.dart';
+import 'package:ya9in/services/auth.dart';
+import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
 import 'package:ya9in/widgets/custom_place_holder.dart';
 import 'package:ya9in/widgets/custom_title.dart';
 
-class AccountScreen extends StatefulWidget {
-  const AccountScreen({super.key});
+class AccountScreen extends StatelessWidget {
+  AccountScreen({super.key});
 
-  @override
-  State<AccountScreen> createState() => _AccountScreenState();
-}
+  final AuthService _authService = AuthService();
 
-class _AccountScreenState extends State<AccountScreen> {
-  Widget getBody() {
+  Future<bool> _confirmSignOut(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: appWhite,
+        title: const Text('Confirm Sign Out'),
+        content: const Text('Are you sure you want to sign out?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Sign Out'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _handleSignOut(BuildContext context) async {
+    bool shouldSignOut = await _confirmSignOut(context);
+    if (shouldSignOut) {
+      await _authService.signOut();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+        ),
+      );
+    }
+  }
+
+  Widget getBody(BuildContext context) {
     List items = AccountMenuJson[2]['categories'];
 
     return SingleChildScrollView(
@@ -55,15 +88,10 @@ class _AccountScreenState extends State<AccountScreen> {
             // Sign in Button
             SizedBox(height: 50),
             CustomButtonBox(
-              title: 'Sign in',
+              title: 'LOGOUT',
               isDisabled: false,
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
-                    ));
-              },
+              color: Colors.red,
+              onTap: () => _handleSignOut(context),
             ),
           ],
         ),
@@ -79,7 +107,7 @@ class _AccountScreenState extends State<AccountScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: getBody(),
+      body: getBody(context),
     );
   }
 }

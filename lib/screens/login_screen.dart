@@ -1,5 +1,8 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ya9in/screens/sign_up_screen.dart';
+import 'package:ya9in/services/phone_verification_provider.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
@@ -15,6 +18,25 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _phoneNumberController = TextEditingController();
   String phoneNumberText = '';
+
+  Country selectedCountry = Country(
+    phoneCode: '213',
+    countryCode: "DZ",
+    e164Sc: 0,
+    geographic: true,
+    level: 1,
+    name: 'Algeria',
+    example: 'Algeria',
+    displayName: 'Algeria',
+    displayNameNoCountryCode: 'DZ',
+    e164Key: '',
+  );
+
+  void loginWithPhoneNumber() {
+    final ap = Provider.of<PhoneVerification>(context, listen: false);
+    String phoneNumber = phoneNumberText.trim();
+    ap.loginWithPhone(context, '+${selectedCountry.phoneCode}$phoneNumber');
+  }
 
   Widget getBody() {
     return SingleChildScrollView(
@@ -57,7 +79,10 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 30),
             CustomButtonBox(
               title: 'Login',
-              onTap: () {},
+              color: appPrimary,
+              onTap: () {
+                loginWithPhoneNumber();
+              },
               isDisabled: phoneNumberText.isEmpty,
             ),
 

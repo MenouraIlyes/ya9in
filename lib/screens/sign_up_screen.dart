@@ -1,5 +1,8 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ya9in/screens/otp_screen.dart';
+import 'package:ya9in/services/phone_verification_provider.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
@@ -15,6 +18,25 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _phoneNumberController = TextEditingController();
   String phoneNumberText = '';
+
+  Country selectedCountry = Country(
+    phoneCode: '213',
+    countryCode: "DZ",
+    e164Sc: 0,
+    geographic: true,
+    level: 1,
+    name: 'Algeria',
+    example: 'Algeria',
+    displayName: 'Algeria',
+    displayNameNoCountryCode: 'DZ',
+    e164Key: '',
+  );
+
+  void sendPhoneNumber() {
+    final ap = Provider.of<PhoneVerification>(context, listen: false);
+    String phoneNumber = phoneNumberText.trim();
+    ap.continueWithPhone(context, '+${selectedCountry.phoneCode}$phoneNumber');
+  }
 
   Widget getBody() {
     return SingleChildScrollView(
@@ -65,12 +87,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(height: 30),
             CustomButtonBox(
               title: 'Continue',
+              color: appPrimary,
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OtpScreen(),
-                    ));
+                sendPhoneNumber();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                      "We'll redirect you to a page to verify that you're not a robot."),
+                  backgroundColor: Colors.green,
+                ));
               },
               isDisabled: phoneNumberText.length < 9,
             ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ya9in/screens/home_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
@@ -58,9 +57,9 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                 color: appPrimary,
               ),
               ListTile(
-                leading: Icon(
-                  Icons.attach_money,
-                  color: appPrimary,
+                leading: Image.asset(
+                  "assets/student.png",
+                  width: 100,
                 ),
                 title: Text(
                   'Student',
@@ -79,9 +78,9 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                 color: appPrimary,
               ),
               ListTile(
-                leading: Icon(
-                  Icons.credit_card,
-                  color: appPrimary,
+                leading: Image.asset(
+                  "assets/teacher.png",
+                  width: 100,
                 ),
                 title: Text(
                   'Professor',
@@ -93,6 +92,11 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                 onTap: () {
                   Navigator.pop(context, 'Professor');
                 },
+              ),
+              Divider(
+                indent: 25,
+                endIndent: 25,
+                color: appPrimary,
               ),
             ],
           ),
@@ -210,12 +214,9 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
             SizedBox(height: 30),
             CustomButtonBox(
               title: 'Confirm',
+              color: appPrimary,
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ));
+                Navigator.of(context).popUntil((route) => route.isFirst);
               },
               isDisabled: nameText.isEmpty || ageText.isEmpty,
             ),

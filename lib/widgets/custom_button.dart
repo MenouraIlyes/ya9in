@@ -7,11 +7,13 @@ class CustomButtonBox extends StatelessWidget {
     required this.title,
     required this.onTap,
     required this.isDisabled,
+    required this.color,
   }) : super(key: key);
 
   final String title;
   final Function()? onTap;
   final bool isDisabled;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class CustomButtonBox extends StatelessWidget {
         height: 45.0,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isDisabled ? Colors.grey[400] : appPrimary.withOpacity(0.7),
+          color: isDisabled ? Colors.grey[400] : color.withOpacity(0.7),
           borderRadius: BorderRadius.circular(17.5),
           boxShadow: [
             BoxShadow(
