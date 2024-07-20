@@ -55,14 +55,29 @@ class PhoneVerification extends ChangeNotifier {
             ),
           ); // Navigate to home screen upon successful verification
         },
-        verificationFailed: (error) {
-          throw Exception(error.message);
+        verificationFailed: (FirebaseAuthException error) {
+          String errorMessage;
+          switch (error.code) {
+            case 'invalid-phone-number':
+              errorMessage = 'The phone number entered is invalid.';
+              break;
+            default:
+              errorMessage =
+                  'Phone number verification failed. Please try again.';
+              break;
+          }
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(errorMessage),
+          ));
         },
         codeSent: (verificationId, forceResendingToken) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => OtpScreen(verificationId: verificationId),
+              builder: (context) => OtpScreen(
+                verificationId: verificationId,
+                isSignUp: true,
+              ),
             ),
           );
         },
@@ -87,7 +102,7 @@ class PhoneVerification extends ChangeNotifier {
   }
 
   // Login the user with a verified phone number
-  void loginWithPhone(BuildContext context, String phoneNumber) async {
+  Future<void> loginWithPhone(BuildContext context, String phoneNumber) async {
     try {
       _isLoading = true;
       notifyListeners();
@@ -104,14 +119,32 @@ class PhoneVerification extends ChangeNotifier {
             ),
           ); // Navigate to home screen upon successful verification
         },
-        verificationFailed: (error) {
-          throw Exception(error.message);
+        verificationFailed: (FirebaseAuthException error) {
+          String errorMessage;
+          switch (error.code) {
+            case 'invalid-phone-number':
+              errorMessage = 'The phone number entered is invalid.';
+              break;
+            case 'missing-phone-number':
+              errorMessage = 'The phone number is missing.';
+              break;
+            default:
+              errorMessage =
+                  'Phone number verification failed. Please try again.';
+              break;
+          }
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(errorMessage),
+          ));
         },
         codeSent: (verificationId, forceResendingToken) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => OtpScreen(verificationId: verificationId),
+              builder: (context) => OtpScreen(
+                verificationId: verificationId,
+                isSignUp: false,
+              ),
             ),
           );
         },

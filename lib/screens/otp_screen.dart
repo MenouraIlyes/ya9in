@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:ya9in/root_app.dart';
+import 'package:ya9in/screens/user_info_screen.dart';
 import 'package:ya9in/services/phone_verification_provider.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 
 class OtpScreen extends StatefulWidget {
   final String verificationId;
+  final bool isSignUp;
   const OtpScreen({
     super.key,
     required this.verificationId,
+    required this.isSignUp,
   });
 
   @override
@@ -21,14 +24,22 @@ class _OtpScreenState extends State<OtpScreen> {
   String? otpCode;
 
   // verify otp
-  void verifyOtp(BuildContext context, String userOtp) {
+  void verifyOtp(BuildContext context, String userOtp, bool isSignUp) {
     final ap = Provider.of<PhoneVerification>(context, listen: false);
     ap.verifyOtp(
-        context: context,
-        verificationId: widget.verificationId,
-        userOtp: userOtp,
-        onSuccess: () {
-          // Navigate to the root app
+      context: context,
+      verificationId: widget.verificationId,
+      userOtp: userOtp,
+      onSuccess: () {
+        if (isSignUp) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UserInfoScreen(),
+            ),
+            (route) => false,
+          );
+        } else {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -36,7 +47,9 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
             (route) => false,
           );
-        });
+        }
+      },
+    );
   }
 
   @override
@@ -122,7 +135,11 @@ class _OtpScreenState extends State<OtpScreen> {
                           color: appPrimary,
                           onTap: () {
                             if (otpCode != null && otpCode!.length == 6) {
-                              verifyOtp(context, otpCode!);
+                              verifyOtp(
+                                context,
+                                otpCode!,
+                                widget.isSignUp,
+                              );
                             } else {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(

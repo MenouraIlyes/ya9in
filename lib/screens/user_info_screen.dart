@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ya9in/root_app.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
@@ -216,7 +217,13 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
               title: 'Confirm',
               color: appPrimary,
               onTap: () {
-                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RootApp(),
+                  ),
+                  (route) => false,
+                );
               },
               isDisabled: nameText.isEmpty || ageText.isEmpty,
             ),

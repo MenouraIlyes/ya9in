@@ -1,7 +1,9 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ya9in/root_app.dart';
 import 'package:ya9in/screens/sign_up_screen.dart';
+import 'package:ya9in/services/auth.dart';
 import 'package:ya9in/services/phone_verification_provider.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_button.dart';
@@ -36,6 +38,44 @@ class _LoginScreenState extends State<LoginScreen> {
     final ap = Provider.of<PhoneVerification>(context, listen: false);
     String phoneNumber = phoneNumberText.trim();
     ap.loginWithPhone(context, '+${selectedCountry.phoneCode}$phoneNumber');
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(
+        'Please wait for a few seconds...',
+      ),
+      backgroundColor: Colors.green,
+    ));
+  }
+
+  bool isGoogleSigningIn = false;
+
+  // Google sign in
+  Future<void> _handleGoogleSignIn() async {
+    setState(() {
+      isGoogleSigningIn = true; // Start Google sign-in loading
+    });
+
+    bool success = await AuthService().signInwithGoogle();
+
+    setState(() {
+      isGoogleSigningIn = false; // Stop Google sign-in loading
+    });
+
+    if (success) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const RootApp(),
+        ),
+        (route) => false,
+      );
+    } else {
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Google sign-in failed'),
+        ),
+      );
+    }
   }
 
   Widget getBody() {
@@ -115,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
             // google sign in box
             SizedBox(height: 20),
             InkWell(
-              onTap: () {},
+              onTap: isGoogleSigningIn ? null : _handleGoogleSignIn,
               child: Container(
                 width: double.infinity,
                 height: 58,
@@ -194,7 +234,16 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
       ),
-      body: getBody(),
+      body: Stack(children: [
+        getBody(),
+        if (isGoogleSigningIn)
+          Container(
+            color: Colors.black.withOpacity(0.5),
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+      ]),
     );
   }
 }

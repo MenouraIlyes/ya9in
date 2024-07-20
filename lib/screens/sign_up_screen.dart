@@ -1,7 +1,8 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ya9in/screens/otp_screen.dart';
+import 'package:ya9in/root_app.dart';
+import 'package:ya9in/services/auth.dart';
 import 'package:ya9in/services/phone_verification_provider.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_button.dart';
@@ -32,6 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     e164Key: '',
   );
 
+  // Phone number sign in
   void sendPhoneNumber() {
     final ap = Provider.of<PhoneVerification>(context, listen: false);
     String phoneNumber = phoneNumberText.trim();
@@ -98,62 +100,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
               },
               isDisabled: phoneNumberText.length < 9,
             ),
-
-            // divider
-            SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // line
-                Expanded(
-                  child: Divider(
-                    color: Colors.grey[300],
-                  ),
-                ),
-                Text(
-                  " Or ",
+            const SizedBox(height: 30),
+            Center(
+              child: GestureDetector(
+                onTap: Navigator.of(context).pop,
+                child: Text(
+                  "Go back",
                   style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey[400],
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: appSecondary,
                   ),
-                ),
-                Expanded(
-                  child: Divider(
-                    color: Colors.grey[300],
-                  ),
-                ),
-              ],
-            ),
-
-            // google sign in box
-            SizedBox(height: 20),
-            InkWell(
-              onTap: () {},
-              child: Container(
-                width: double.infinity,
-                height: 58,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey[300]!),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // google logo
-                    Image.asset(
-                      "assets/Google-Logo.png",
-                      width: 25,
-                    ),
-                    Text(
-                      'Continue with google',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                      ),
-                    ),
-                    SizedBox(width: 20),
-                  ],
                 ),
               ),
             ),

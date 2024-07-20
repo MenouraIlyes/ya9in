@@ -9,10 +9,23 @@
       "client_info": {
         "mobilesdk_app_id": "1:501490669132:android:868291e7f946d947ec06e9",
         "android_client_info": {
-          "package_name": "com.example.ya9in"
+          "package_name": "com.example.yakin"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "501490669132-vc54tbanr8jblj3jklg7vdm550gkfpc8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yakin",
+            "certificate_hash": "9074a72beed8f0670cf56ba8aa651b26e107d306"
+          }
+        },
+        {
+          "client_id": "501490669132-9mulbvkqpd2ketcvqt8relfd078o15hp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAVJrLSlzPfeO3Dlklm9E0Ta16UID42hJw"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501490669132-9mulbvkqpd2ketcvqt8relfd078o15hp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "501490669132-p37gr64p1gbdssqa66ooj3mdmr3jjn0e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ya9in"
+              }
+            }
+          ]
         }
       }
     }
