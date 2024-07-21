@@ -13,8 +13,6 @@ class CourseScreen extends StatefulWidget {
 
 class _CourseScreenState extends State<CourseScreen> {
   Widget getBody() {
-    var size = MediaQuery.of(context).size;
-
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(25),

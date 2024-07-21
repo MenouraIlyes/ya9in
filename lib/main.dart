@@ -3,9 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ya9in/firebase_options.dart';
+import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/root_app.dart';
 import 'package:ya9in/screens/login_screen.dart';
-import 'package:ya9in/screens/sign_up_screen.dart';
 import 'package:ya9in/services/phone_verification_provider.dart';
 
 void main() async {
@@ -17,6 +17,11 @@ void main() async {
         // Auth or Phone number provider
         ChangeNotifierProvider(
           create: (context) => PhoneVerification(),
+        ),
+
+        // User provider
+        ChangeNotifierProvider(
+          create: (context) => UserProvider(),
         ),
       ],
       child: const MyApp(),
@@ -44,7 +49,7 @@ class AuthWrapper extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator(); // or a splash screen
+          return CircularProgressIndicator();
         } else if (snapshot.hasData) {
           return RootApp(); // User is signed in
         } else {

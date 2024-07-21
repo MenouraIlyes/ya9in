@@ -44,6 +44,8 @@ class _CustomTextfieldState extends State<CustomTextfield> {
       obscureText: isObsecure,
       onChanged: widget.onChanged,
       controller: widget.controller,
+      keyboardType:
+          widget.phoneNumber ? TextInputType.phone : TextInputType.text,
       style: widget.phoneNumber
           ? TextStyle(fontWeight: FontWeight.bold, fontSize: 18)
           : null,

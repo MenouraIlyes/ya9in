@@ -40,9 +40,10 @@ class _LoginScreenState extends State<LoginScreen> {
     ap.loginWithPhone(context, '+${selectedCountry.phoneCode}$phoneNumber');
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(
-        'Please wait for a few seconds...',
+        "We're gonna send you a verification code, please wait for a few seconds...",
       ),
       backgroundColor: Colors.green,
+      duration: Duration(seconds: 5),
     ));
   }
 
