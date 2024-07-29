@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ya9in/datas/category_json.dart';
 import 'package:ya9in/datas/course_json.dart';
+import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/clipper.dart';
 import 'package:ya9in/widgets/custom_categories_button.dart';
@@ -18,6 +20,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late Future<void> _fetchUserFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserFuture =
+        Provider.of<UserProvider>(context, listen: false).fetchUser();
+  }
+
   Widget getBody() {
     var size = MediaQuery.of(context).size;
     return SingleChildScrollView(
@@ -44,42 +55,62 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
                     SizedBox(height: 74),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Welcome Text Username
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Hi, Menoura',
-                                style: TextStyle(
-                                  color: appWhite,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              SizedBox(height: 10.0),
-                              Text(
-                                "Let's start learning",
-                                style: TextStyle(
-                                  color: appWhite,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ]),
+                    FutureBuilder<void>(
+                        future: _fetchUserFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            final userProvider =
+                                Provider.of<UserProvider>(context);
+                            final user = userProvider.user;
+                            if (user == null) {
+                              return Text('No user data found');
+                            } else {
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // Welcome Text Username
+                                  Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Hi, ${user.name}',
+                                          style: TextStyle(
+                                            color: appWhite,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        SizedBox(height: 10.0),
+                                        Text(
+                                          "Let's start learning",
+                                          style: TextStyle(
+                                            color: appWhite,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ]),
 
-                        // Username Icon
-                        Container(
-                          height: 80,
-                          width: 80,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Image.asset('assets/pfp.jpg'),
-                          ),
-                        ),
-                      ],
-                    ),
+                                  // Username Icon
+                                  Container(
+                                    height: 80,
+                                    width: 80,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Image.asset('assets/pfp.jpg'),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+                          }
+                        }),
 
                     // search field
                     SizedBox(height: 50),

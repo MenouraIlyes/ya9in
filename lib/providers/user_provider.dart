@@ -8,9 +8,32 @@ class UserProvider with ChangeNotifier {
 
   UserModel? get user => _user;
 
+  // Add user
+  Future<void> addUser(UserModel user) async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      DocumentReference userDocRef =
+          FirebaseFirestore.instance.collection('users').doc(currentUser.uid);
+
+      DocumentSnapshot userDoc = await userDocRef.get();
+
+      if (!userDoc.exists) {
+        // If the document does not exist, create it
+        await userDocRef.set(user.toMap());
+        _user = user;
+        notifyListeners();
+      } else {
+        // If the document already exists, update it
+        await updateUser(user);
+      }
+    }
+  }
+
   // Fetch user
   Future<void> fetchUser() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
+    print("Fetching user data for: ${currentUser?.uid}");
 
     if (currentUser != null) {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance
@@ -36,5 +59,11 @@ class UserProvider with ChangeNotifier {
       _user = user;
       notifyListeners();
     }
+  }
+
+  // Clear user data
+  void clearUser() {
+    _user = null;
+    notifyListeners();
   }
 }

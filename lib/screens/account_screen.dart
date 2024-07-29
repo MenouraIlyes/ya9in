@@ -47,7 +47,7 @@ class AccountScreen extends StatelessWidget {
   Future<void> _handleSignOut(BuildContext context) async {
     bool shouldSignOut = await _confirmSignOut(context);
     if (shouldSignOut) {
-      await _authService.signOut();
+      await _authService.signOut(context);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

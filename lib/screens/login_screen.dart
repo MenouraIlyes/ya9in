@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ya9in/root_app.dart';
+import 'package:ya9in/screens/home_screen.dart';
 import 'package:ya9in/screens/sign_up_screen.dart';
+import 'package:ya9in/screens/user_info_screen.dart';
 import 'package:ya9in/services/auth.dart';
 import 'package:ya9in/services/phone_verification_provider.dart';
 import 'package:ya9in/shared/colors.dart';
@@ -55,20 +59,34 @@ class _LoginScreenState extends State<LoginScreen> {
       isGoogleSigningIn = true; // Start Google sign-in loading
     });
 
-    bool success = await AuthService().signInwithGoogle();
+    User? user = await AuthService().signInWithGoogle();
 
     setState(() {
       isGoogleSigningIn = false; // Stop Google sign-in loading
     });
 
-    if (success) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const RootApp(),
-        ),
-        (route) => false,
-      );
+    if (user != null) {
+      // Check if user already exists in Firestore
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+
+      if (userDoc.exists) {
+        // Navigate to Home Screen
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+          (route) => false,
+        );
+      } else {
+        // Navigate to User Info Screen
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => UserInfoScreen()),
+          (route) => false,
+        );
+      }
     } else {
       // Show error message
       ScaffoldMessenger.of(context).showSnackBar(

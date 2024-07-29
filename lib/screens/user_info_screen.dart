@@ -21,14 +21,14 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   String selectedRole = 'Student';
 
   // Store user info
-  void _updateUserInfo() async {
+  void _addUserInfo() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final user = UserModel(
       name: _nameController.text,
       age: age.toString(),
       role: selectedRole,
     );
-    await userProvider.updateUser(user);
+    await userProvider.addUser(user);
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
@@ -368,7 +368,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
               title: 'Confirm',
               color: appPrimary,
               onTap: () {
-                _updateUserInfo();
+                _addUserInfo();
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
