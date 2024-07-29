@@ -35,6 +35,15 @@ class AuthService {
     }
   }
 
+  // check if the user exists
+  Future<bool> isNewUser(User user) async {
+    // Check if user is newly created based on creation time
+    DateTime? creationTime = user.metadata.creationTime;
+    final now = DateTime.now();
+    final differenceInMinutes = now.difference(creationTime!).inMinutes;
+    return differenceInMinutes < 2; // Adjust threshold as needed
+  }
+
   // Email sign in
   Future<User?> signInWithEmail(String email, String password) async {
     try {

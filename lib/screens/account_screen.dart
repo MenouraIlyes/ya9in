@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ya9in/datas/account_menu_json.dart';
+import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/screens/login_screen.dart';
 import 'package:ya9in/services/auth.dart';
 import 'package:ya9in/shared/colors.dart';
@@ -59,6 +61,8 @@ class AccountScreen extends StatelessWidget {
 
   Widget getBody(BuildContext context) {
     List items = AccountMenuJson[2]['categories'];
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.user;
 
     return SingleChildScrollView(
       child: Padding(
@@ -70,7 +74,7 @@ class AccountScreen extends StatelessWidget {
             SizedBox(height: 30),
             CustomHeading(
               title: 'Account',
-              subTitle: 'Student',
+              subTitle: '${user!.role}',
               color: Colors.black,
             ),
 

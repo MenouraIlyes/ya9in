@@ -66,24 +66,21 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     if (user != null) {
-      // Check if user already exists in Firestore
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
+      final authService = AuthService();
+      final isNewUser = await authService.isNewUser(user);
 
-      if (userDoc.exists) {
-        // Navigate to Home Screen
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-          (route) => false,
-        );
-      } else {
-        // Navigate to User Info Screen
+      if (isNewUser) {
+        // Navigate to UserInfoScreen
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => UserInfoScreen()),
+          (route) => false,
+        );
+      } else {
+        // Navigate to HomeScreen
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => RootApp()),
           (route) => false,
         );
       }
