@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ya9in/models/course.dart';
 import 'package:ya9in/models/lesson.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_categories_button.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
 import 'package:ya9in/widgets/custom_lesson_card.dart';
+import 'package:ya9in/widgets/custom_tab_view.dart';
 
 class CourseDetailsScreen extends StatefulWidget {
   const CourseDetailsScreen({super.key});
@@ -14,6 +14,14 @@ class CourseDetailsScreen extends StatefulWidget {
 }
 
 class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
+  int _selectedTag = 0;
+
+  void changeTab(int index) {
+    setState(() {
+      _selectedTag = index;
+    });
+  }
+
   Widget getBody() {
     return Container(
       // background color

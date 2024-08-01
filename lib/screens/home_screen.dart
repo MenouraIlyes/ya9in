@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ]),
 
-                                  // Username Icon
+                                  // Username profile picture
                                   Container(
                                     height: 80,
                                     width: 80,

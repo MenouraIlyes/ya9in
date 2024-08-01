@@ -5,9 +5,11 @@ import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/screens/login_screen.dart';
 import 'package:ya9in/services/auth.dart';
 import 'package:ya9in/shared/colors.dart';
+import 'package:ya9in/widgets/clipper.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
 import 'package:ya9in/widgets/custom_place_holder.dart';
+import 'package:ya9in/widgets/custom_profile_menu_widget.dart';
 import 'package:ya9in/widgets/custom_title.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -64,51 +66,120 @@ class AccountScreen extends StatelessWidget {
     final userProvider = Provider.of<UserProvider>(context);
     final user = userProvider.user;
 
+    var size = MediaQuery.of(context).size;
+
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Heading
-            SizedBox(height: 30),
-            CustomHeading(
-              title: 'Account',
-              subTitle: '${user?.role}',
-              color: Colors.black,
-            ),
-
-            // Support
-            SizedBox(height: 50),
-            CustomTitle(
-              title: 'Support',
-              extend: false,
-            ),
-            SizedBox(height: 25),
-            Column(
-              children: List.generate(
-                items.length,
-                (index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: CunstomPlaceHolder(
-                      title: items[index]['title'],
-                    ),
-                  );
-                },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // background
+          Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              ClipPath(
+                clipper: BottomClipper(),
+                child: Container(
+                  width: size.width,
+                  height: 320,
+                  decoration: BoxDecoration(
+                    color: appSecondary,
+                  ),
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25),
+                child: Column(children: [
+                  SizedBox(height: 60),
+                  // Heading
+                  CustomHeading(
+                    title: 'Account',
+                    subTitle: '',
+                    color: appWhite,
+                  ),
 
-            // Sign in Button
-            SizedBox(height: 50),
-            CustomButtonBox(
+                  // profile details
+                  Container(
+                    height: 100,
+                    width: 100,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset('assets/pfp.jpg'),
+                    ),
+                  ),
+
+                  // user name and role
+                  SizedBox(height: 10),
+                  Text(
+                    user!.name,
+                    style: TextStyle(
+                      color: appWhite,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    user.role,
+                    style: TextStyle(
+                      color: appWhite,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ]),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 20),
+
+          // your profile
+          CustomProfileMenuWidget(
+            icon: Icons.person,
+            onTap: () {},
+            title: 'Your Profile',
+          ),
+
+          // payment methods
+          CustomProfileMenuWidget(
+            icon: Icons.credit_card,
+            onTap: () {},
+            title: 'Payment Methods',
+          ),
+
+          // settings
+          CustomProfileMenuWidget(
+            icon: Icons.settings,
+            onTap: () {},
+            title: 'Settings',
+          ),
+
+          // Support
+          CustomProfileMenuWidget(
+            icon: Icons.support,
+            onTap: () {},
+            title: 'Support',
+          ),
+
+          // About us
+          CustomProfileMenuWidget(
+            icon: Icons.contact_support,
+            onTap: () {},
+            title: 'About Us',
+          ),
+
+          // Sign out Button
+          SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.only(left: 25.0, right: 25.0, bottom: 10),
+            child: CustomButtonBox(
               title: 'LOGOUT',
               isDisabled: false,
               color: Colors.red,
               onTap: () => _handleSignOut(context),
+              icon: Icons.logout,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

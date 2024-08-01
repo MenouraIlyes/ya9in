@@ -8,12 +8,14 @@ class CustomButtonBox extends StatelessWidget {
     required this.onTap,
     required this.isDisabled,
     required this.color,
+    this.icon,
   }) : super(key: key);
 
   final String title;
   final Function()? onTap;
   final bool isDisabled;
   final Color color;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +38,24 @@ class CustomButtonBox extends StatelessWidget {
             )
           ],
         ),
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w700,
-            color: appWhite,
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          // icon
+          if (icon != null) // Check if the icon is provided
+            Icon(
+              icon,
+              color: appWhite,
+            ),
+          if (icon != null) const SizedBox(width: 8.0),
+          // title
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w700,
+              color: appWhite,
+            ),
           ),
-        ),
+        ]),
       ),
     );
   }

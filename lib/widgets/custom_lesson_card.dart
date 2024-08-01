@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:ya9in/models/lesson.dart';
 
@@ -18,9 +20,12 @@ class CustomLessonCard extends StatelessWidget {
                 'assets/play.png',
                 height: 45,
               )
-            : Image.asset(
-                'assets/not_play.png',
-                height: 45,
+            : Opacity(
+                opacity: 0.5,
+                child: Image.asset(
+                  'assets/not_play.png',
+                  height: 45,
+                ),
               ),
 
         SizedBox(width: 15),
@@ -55,9 +60,12 @@ class CustomLessonCard extends StatelessWidget {
                 'assets/check.png',
                 height: 40,
               )
-            : Image.asset(
-                'assets/lock.png',
-                height: 40,
+            : Opacity(
+                opacity: 0.5,
+                child: Image.asset(
+                  'assets/lock.png',
+                  height: 40,
+                ),
               ),
       ],
     );
