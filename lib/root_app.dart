@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/screens/account_screen.dart';
-import 'package:ya9in/screens/course_screen.dart';
+import 'package:ya9in/screens/courses_screen.dart';
 import 'package:ya9in/screens/explore_screen.dart';
 import 'package:ya9in/screens/home_screen.dart';
+import 'package:ya9in/screens/prof_course_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 
 class RootApp extends StatefulWidget {
@@ -16,45 +19,50 @@ class RootApp extends StatefulWidget {
 class _RootAppState extends State<RootApp> {
   int _selectedIndex = 0;
 
-  // pages
-  final List<Widget> pages = [
-    HomeScreen(),
-    CourseScreen(),
-    ExploreScreen(),
-    AccountScreen(),
-  ];
-
   void _navigateBottomBar(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  final List<GButton> tabs = [
-    // home
-    GButton(
-      icon: Icons.home_filled,
-      text: 'Home',
-    ),
-
-    // course
-    GButton(
-      icon: Icons.play_circle_outline,
-      text: 'Course',
-    ),
-    // idk
-    GButton(
-      icon: Icons.explore,
-      text: 'Explore',
-    ),
-    GButton(
-      icon: Icons.account_circle_rounded,
-      text: 'Account',
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.user;
+
+    bool isProfessor = user != null && user.role == 'Professor';
+
+    // pages
+    final List<Widget> pages = [
+      HomeScreen(),
+      if (isProfessor) ProfCourseScreen() else CourseScreen(),
+      ExploreScreen(),
+      AccountScreen(),
+    ];
+
+    final List<GButton> tabs = [
+      // home
+      GButton(
+        icon: Icons.home_filled,
+        text: 'Home',
+      ),
+      // courses
+      GButton(
+        icon: Icons.play_circle_outline,
+        text: 'Courses',
+      ),
+      // explore
+      GButton(
+        icon: Icons.explore,
+        text: 'Explore',
+      ),
+      // account infos
+      GButton(
+        icon: Icons.account_circle_rounded,
+        text: 'Account',
+      ),
+    ];
+
     return Scaffold(
       bottomNavigationBar: GNav(
         gap: 8,

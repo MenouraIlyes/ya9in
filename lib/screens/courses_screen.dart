@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ya9in/datas/course_json.dart';
+import 'package:ya9in/screens/course_details_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
 import 'package:ya9in/widgets/custom_my_courses_card.dart';
@@ -42,21 +43,30 @@ class _CourseScreenState extends State<CourseScreen> {
 
             // Courses cards
             SizedBox(height: 50),
-            Column(
-              children: List.generate(
-                MyCoursesJson.length,
-                (index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 15),
-                    child: CustomMyCoursesCard(
-                      image: MyCoursesJson[index]['image'],
-                      instructor: MyCoursesJson[index]['user_name'],
-                      title: MyCoursesJson[index]['title'],
-                      videoAmount: MyCoursesJson[index]['video'],
-                      percentage: MyCoursesJson[index]['percentage'],
-                    ),
-                  );
-                },
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CourseDetailsScreen(),
+                    ));
+              },
+              child: Column(
+                children: List.generate(
+                  MyCoursesJson.length,
+                  (index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: CustomMyCoursesCard(
+                        image: MyCoursesJson[index]['image'],
+                        instructor: MyCoursesJson[index]['user_name'],
+                        title: MyCoursesJson[index]['title'],
+                        videoAmount: MyCoursesJson[index]['video'],
+                        percentage: MyCoursesJson[index]['percentage'],
+                      ),
+                    );
+                  },
+                ),
               ),
             )
           ],

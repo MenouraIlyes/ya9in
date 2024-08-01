@@ -5,9 +5,11 @@ class CustomCategoriesButton extends StatelessWidget {
   const CustomCategoriesButton({
     Key? key,
     required this.title,
+    this.icon,
   }) : super(key: key);
 
   final String title;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +35,24 @@ class CustomCategoriesButton extends StatelessWidget {
               )
             ],
           ),
-          child: Text(
-            title,
-            style: TextStyle(
-              color: appWhite,
-              fontSize: 15.0,
-              fontWeight: FontWeight.w700,
+          child: Row(mainAxisSize: MainAxisSize.min, children: [
+            // icon
+            if (icon != null) // Check if the icon is provided
+              Icon(
+                icon,
+                color: appWhite,
+              ),
+            if (icon != null) const SizedBox(width: 8.0),
+            //title
+            Text(
+              title,
+              style: TextStyle(
+                color: appWhite,
+                fontSize: 15.0,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
+          ]),
         ),
       ],
     );

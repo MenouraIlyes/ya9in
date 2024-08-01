@@ -74,7 +74,7 @@ class AccountScreen extends StatelessWidget {
             SizedBox(height: 30),
             CustomHeading(
               title: 'Account',
-              subTitle: '${user!.role}',
+              subTitle: '${user?.role}',
               color: Colors.black,
             ),
 

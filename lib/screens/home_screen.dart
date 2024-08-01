@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Provider.of<UserProvider>(context);
                             final user = userProvider.user;
                             if (user == null) {
-                              return Text('No user data found');
+                              return CircularProgressIndicator();
                             } else {
                               return Row(
                                 mainAxisAlignment:
