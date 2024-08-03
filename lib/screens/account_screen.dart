@@ -8,9 +8,7 @@ import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/clipper.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
-import 'package:ya9in/widgets/custom_place_holder.dart';
 import 'package:ya9in/widgets/custom_profile_menu_widget.dart';
-import 'package:ya9in/widgets/custom_title.dart';
 
 class AccountScreen extends StatelessWidget {
   AccountScreen({super.key});
@@ -18,34 +16,61 @@ class AccountScreen extends StatelessWidget {
   final AuthService _authService = AuthService();
 
   Future<bool> _confirmSignOut(BuildContext context) async {
-    return await showDialog(
+    final result = await showModalBottomSheet<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: appWhite,
-        title: const Text('Confirm Sign Out'),
-        content: const Text('Are you sure you want to sign out?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text(
-              'Cancel',
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      backgroundColor: appWhite,
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Logout',
               style: TextStyle(
-                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text(
-              'Sign Out',
-              style: TextStyle(
-                color: Colors.red,
-              ),
+            Divider(),
+            SizedBox(height: 5),
+            Text('Are you sure you want to log out?'),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: CustomButtonBox(
+                    title: 'Cancel',
+                    onTap: () {
+                      Navigator.pop(context, false);
+                    },
+                    isDisabled: false,
+                    color: Colors.grey[500]!,
+                    icon: Icons.cancel_sharp,
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: CustomButtonBox(
+                    title: 'Yes, Logout',
+                    onTap: () {
+                      Navigator.pop(context, true);
+                    },
+                    isDisabled: false,
+                    color: Colors.red,
+                    icon: Icons.logout,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+    return result ?? false; // Return false if result is null
   }
 
   Future<void> _handleSignOut(BuildContext context) async {

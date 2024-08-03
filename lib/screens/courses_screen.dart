@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ya9in/datas/course_json.dart';
-import 'package:ya9in/screens/course_details_screen.dart';
+import 'package:ya9in/screens/enrolled_course_details_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
 import 'package:ya9in/widgets/custom_my_courses_card.dart';
@@ -48,7 +48,7 @@ class _CourseScreenState extends State<CourseScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CourseDetailsScreen(),
+                      builder: (context) => EnrolledCourseDetailsScreen(),
                     ));
               },
               child: Column(

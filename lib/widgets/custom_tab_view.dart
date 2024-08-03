@@ -25,19 +25,27 @@ class _CustomTabViewState extends State<CustomTabView> {
         },
         child: Container(
           padding: EdgeInsets.symmetric(
-            vertical: 15,
-          ),
-          decoration: BoxDecoration(
-            color: widget.index == index ? appBackground : null,
-            borderRadius: BorderRadius.circular(10),
+            vertical: 10,
           ),
           alignment: Alignment.center,
-          child: Text(
-            _tags[index],
-            style: TextStyle(
-              color: widget.index != index ? Colors.black : appWhite,
-              fontSize: 16,
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                _tags[index],
+                style: TextStyle(
+                  color: widget.index != index ? Colors.black : appBackground,
+                  fontSize: 16,
+                ),
+              ),
+              if (widget.index == index)
+                Container(
+                  margin: const EdgeInsets.only(top: 5),
+                  height: 4,
+                  width: 150,
+                  color: appBackground,
+                ),
+            ],
           ),
         ),
       ),
@@ -51,7 +59,7 @@ class _CustomTabViewState extends State<CustomTabView> {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: appInversePrimary.withOpacity(0.5),
+        color: appWhite.withOpacity(0.5),
       ),
       child: Row(
         children: _tags
