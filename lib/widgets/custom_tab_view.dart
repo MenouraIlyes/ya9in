@@ -4,10 +4,13 @@ import 'package:ya9in/shared/colors.dart';
 class CustomTabView extends StatefulWidget {
   final Function(int) changeTab;
   final int index;
-  const CustomTabView({
+  bool enrolled;
+
+  CustomTabView({
     super.key,
     required this.changeTab,
     required this.index,
+    this.enrolled = false,
   });
 
   @override
@@ -36,6 +39,7 @@ class _CustomTabViewState extends State<CustomTabView> {
                 style: TextStyle(
                   color: widget.index != index ? Colors.black : appBackground,
                   fontSize: 16,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               if (widget.index == index)
@@ -54,20 +58,24 @@ class _CustomTabViewState extends State<CustomTabView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: appWhite.withOpacity(0.5),
-      ),
-      child: Row(
-        children: _tags
-            .asMap()
-            .entries
-            .map((MapEntry map) => _buildTags(map.key))
-            .toList(),
-      ),
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: appWhite.withOpacity(0.5),
+          ),
+          child: Row(
+            children: _tags
+                .asMap()
+                .entries
+                .map((MapEntry map) => _buildTags(map.key))
+                .toList(),
+          ),
+        ),
+      ],
     );
   }
 }

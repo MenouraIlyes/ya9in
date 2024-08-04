@@ -71,7 +71,7 @@ class _CustomCourseCardExpandState extends State<CustomCourseCardExpand> {
                   child: Text(
                     '${widget.videoAmount} Videos',
                     style: TextStyle(
-                        color: appBackground,
+                        color: Colors.black,
                         fontSize: 14.0,
                         fontWeight: FontWeight.w700),
                   ),
@@ -90,7 +90,7 @@ class _CustomCourseCardExpandState extends State<CustomCourseCardExpand> {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: appSecondary,
+                color: Colors.black,
                 fontSize: 17.0,
                 fontWeight: FontWeight.w700,
               ),

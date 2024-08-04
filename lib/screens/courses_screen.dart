@@ -78,6 +78,7 @@ class _CourseScreenState extends State<CourseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: appWhite,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,

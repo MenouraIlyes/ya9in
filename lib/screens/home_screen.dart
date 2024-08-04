@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ya9in/datas/category_json.dart';
 import 'package:ya9in/datas/course_json.dart';
 import 'package:ya9in/providers/user_provider.dart';
+import 'package:ya9in/screens/course_details_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/clipper.dart';
 import 'package:ya9in/widgets/custom_categories_button.dart';
@@ -151,13 +152,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 (index) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 10),
-                    child: CustomCourseCardExpand(
-                      thumbNail: CoursesJson[index]['image'],
-                      videoAmount: CoursesJson[index]['video'],
-                      title: CoursesJson[index]['title'],
-                      userProfile: CoursesJson[index]['user_profile'],
-                      userName: CoursesJson[index]['user_name'],
-                      price: CoursesJson[index]['price'],
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CourseDetailsScreen(),
+                            ));
+                      },
+                      child: CustomCourseCardExpand(
+                        thumbNail: CoursesJson[index]['image'],
+                        videoAmount: CoursesJson[index]['video'],
+                        title: CoursesJson[index]['title'],
+                        userProfile: CoursesJson[index]['user_profile'],
+                        userName: CoursesJson[index]['user_name'],
+                        price: CoursesJson[index]['price'],
+                      ),
                     ),
                   );
                 },
@@ -253,6 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: appWhite,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,

@@ -24,7 +24,7 @@ class CustomCategoriesButton extends StatelessWidget {
             bottom: 10.0,
           ),
           decoration: BoxDecoration(
-            color: appTeriatery.withOpacity(0.7),
+            color: appTeriatery,
             borderRadius: BorderRadius.circular(100.0),
             boxShadow: [
               BoxShadow(
