@@ -34,75 +34,71 @@ class Lesson {
   }
 }
 
-List<Lesson> lessonList = [
+List<Lesson> flutterLessons = [
   Lesson(
-    title: 'Introduction to React',
-    videoUrl: 'https://example.com/video1.mp4',
+    title: 'Setting up Flutter',
+    videoUrl: 'assets/videos/flutter1.mp4',
     duration: 10,
-    description: 'An introductory lesson on React.',
-    isCompleted: true,
+    description:
+        'Learn how to set up Flutter on your machine and create your first project.',
   ),
   Lesson(
-    title: 'Firebase Basics',
-    videoUrl: 'https://example.com/video2.mp4',
+    title: 'Hello World',
+    videoUrl: 'assets/videos/flutter2.mp4',
     duration: 15,
-    description: 'A basic introduction to Firebase.',
-    isCompleted: false,
+    description:
+        'Create your first Flutter app with a simple Hello World example.',
   ),
   Lesson(
-    title: 'State Management in React',
-    videoUrl: 'https://example.com/video3.mp4',
+    title: 'Flutter Widgets',
+    videoUrl: 'assets/videos/flutter3.mp4',
     duration: 20,
-    description: 'Understanding state management in React.',
-    isCompleted: false,
+    description: 'An overview of the most commonly used widgets in Flutter.',
   ),
+];
+
+List<Lesson> dartLessons = [
   Lesson(
-    title: 'Firestore Integration',
-    videoUrl: 'https://example.com/video4.mp4',
-    duration: 25,
-    description: 'Integrating Firestore with React.',
-    isCompleted: false,
-  ),
-  Lesson(
-    title: 'User Authentication',
-    videoUrl: 'https://example.com/video5.mp4',
+    title: 'Asynchronous Programming',
+    videoUrl: 'assets/videos/dart1.mp4',
     duration: 30,
-    description: 'Implementing user authentication with Firebase.',
-    isCompleted: false,
+    description: 'Learn about Futures, async, and await in Dart.',
   ),
   Lesson(
-    title: 'React Router Basics',
-    videoUrl: 'https://example.com/video6.mp4',
-    duration: 18,
-    description: 'Navigating between pages using React Router.',
-    isCompleted: false,
+    title: 'Streams',
+    videoUrl: 'assets/videos/dart2.mp4',
+    duration: 25,
+    description: 'Understand how to work with streams in Dart.',
   ),
   Lesson(
-    title: 'Building Reusable Components',
-    videoUrl: 'https://example.com/video7.mp4',
-    duration: 22,
-    description: 'Creating reusable components in React.',
-    isCompleted: false,
-  ),
-  Lesson(
-    title: 'Advanced Firebase Functions',
-    videoUrl: 'https://example.com/video8.mp4',
+    title: 'Isolates',
+    videoUrl: 'assets/videos/dart3.mp4',
     duration: 35,
-    description: 'Exploring advanced functions in Firebase.',
-    isCompleted: false,
+    description:
+        'Learn about isolates and how to use them for concurrent programming in Dart.',
+  ),
+];
+
+List<Lesson> stateManagementLessons = [
+  Lesson(
+    title: 'Provider Package',
+    videoUrl: 'assets/videos/state1.mp4',
+    duration: 20,
+    description:
+        'Introduction to state management using the Provider package in Flutter.',
   ),
   Lesson(
-    title: 'Performance Optimization',
-    videoUrl: 'https://example.com/video9.mp4',
-    duration: 28,
-    description: 'Optimizing performance in React applications.',
-    isCompleted: false,
+    title: 'Bloc Pattern',
+    videoUrl: 'assets/videos/state2.mp4',
+    duration: 25,
+    description:
+        'Learn about the Bloc pattern and how to use it in Flutter applications.',
   ),
   Lesson(
-    title: 'Deployment and Hosting',
-    videoUrl: 'https://example.com/video10.mp4',
-    duration: 40,
-    description: 'Deploying and hosting React applications.',
-    isCompleted: false,
+    title: 'Riverpod',
+    videoUrl: 'assets/videos/state3.mp4',
+    duration: 30,
+    description:
+        'An overview of Riverpod, a provider-like state management solution.',
   ),
 ];

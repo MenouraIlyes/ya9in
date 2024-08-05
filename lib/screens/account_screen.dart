@@ -70,7 +70,7 @@ class AccountScreen extends StatelessWidget {
         ),
       ),
     );
-    return result ?? false; // Return false if result is null
+    return result ?? false;
   }
 
   Future<void> _handleSignOut(BuildContext context) async {

@@ -52,6 +52,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 (index) {
                   return CustomCategoriesButton(
                     title: CategoryJson[index]['title'],
+                    color: appTeriatery,
                   );
                 },
               ),

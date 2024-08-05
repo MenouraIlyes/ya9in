@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ya9in/firebase_options.dart';
+import 'package:ya9in/providers/course_provider.dart';
+import 'package:ya9in/providers/lesson_provider.dart';
 import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/root_app.dart';
 import 'package:ya9in/screens/login_screen.dart';
@@ -22,6 +24,16 @@ void main() async {
         // User provider
         ChangeNotifierProvider(
           create: (context) => UserProvider(),
+        ),
+
+        // Course provider
+        ChangeNotifierProvider(
+          create: (context) => CourseProvider(),
+        ),
+
+        // Lesson provider
+        ChangeNotifierProvider(
+          create: (context) => LessonProvider(),
         ),
       ],
       child: const MyApp(),

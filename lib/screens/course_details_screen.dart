@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ya9in/models/course.dart';
 import 'package:ya9in/models/lesson.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_appbar.dart';
@@ -9,7 +10,12 @@ import 'package:ya9in/widgets/custom_lesson_card.dart';
 import 'package:ya9in/widgets/custom_tab_view.dart';
 
 class CourseDetailsScreen extends StatefulWidget {
-  const CourseDetailsScreen({super.key});
+  const CourseDetailsScreen({
+    super.key,
+    required this.course,
+  });
+
+  final Course course;
 
   @override
   State<CourseDetailsScreen> createState() => _CourseDetailsScreenState();
@@ -28,11 +34,11 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 0, right: 10, left: 10),
       child: Column(children: [
-        ...List.generate(lessonList.length, (index) {
+        ...List.generate(widget.course.lessons.length, (index) {
           return Column(
             children: [
               CustomLessonCard(
-                lesson: lessonList[index],
+                lesson: widget.course.lessons[index],
               ),
               const SizedBox(height: 20),
             ],
@@ -46,7 +52,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Text(
-        'This is a detailed description of the course. It covers various topics and provides a comprehensive understanding of the subject.',
+        widget.course.description,
         style: TextStyle(fontSize: 16),
       ),
     );
@@ -75,7 +81,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                   bottomRight: Radius.circular(20),
                 ),
                 child: Image(
-                  image: AssetImage('assets/meeting.jpg'),
+                  image: AssetImage(widget.course.image),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -94,8 +100,9 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       padding: const EdgeInsets.only(
                           left: 10, right: 5, top: 5, bottom: 5),
                       child: CustomCategoriesButton(
-                        title: 'Robert Green',
+                        title: widget.course.userName,
                         icon: Icons.person,
+                        color: appPrimary,
                       ),
                     ),
                     Padding(
@@ -104,6 +111,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       child: CustomCategoriesButton(
                         title: '68 hours',
                         icon: Icons.watch_later,
+                        color: appPrimary,
                       ),
                     ),
                     Padding(
@@ -112,6 +120,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       child: CustomCategoriesButton(
                         title: '4.5 (365 reviews)',
                         icon: Icons.star,
+                        color: appPrimary,
                       ),
                     ),
                   ],
@@ -125,18 +134,16 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
         Expanded(
           child: Padding(
             padding:
-                const EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 0),
+                const EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // title
                 CustomHeading(
-                  title: 'Web Apps with React and Firebase Introduction',
-                  subTitle: 'Best seller',
+                  title: widget.course.title,
+                  subTitle: '',
                   color: Colors.black,
                 ),
-
-                SizedBox(height: 10),
 
                 // tab view
                 CustomTabView(
@@ -161,7 +168,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
       backgroundColor: appWhite,
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90),
+        preferredSize: Size.fromHeight(80),
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: CustomAppbar(),
@@ -198,7 +205,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       ),
                     ),
                     Text(
-                      '45000 DA',
+                      '${widget.course.price} DA',
                       style: TextStyle(
                         color: appPrimary,
                         fontSize: 18,

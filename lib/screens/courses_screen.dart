@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ya9in/datas/course_json.dart';
+import 'package:provider/provider.dart';
+import 'package:ya9in/models/course.dart';
+import 'package:ya9in/providers/course_provider.dart';
 import 'package:ya9in/screens/enrolled_course_details_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_heading.dart';
@@ -13,7 +15,7 @@ class CourseScreen extends StatefulWidget {
 }
 
 class _CourseScreenState extends State<CourseScreen> {
-  Widget getBody() {
+  Widget getBody(List<Course> courses) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(25),
@@ -31,7 +33,7 @@ class _CourseScreenState extends State<CourseScreen> {
 
                 // Number of courses enrolled in
                 Text(
-                  "${MyCoursesJson.length} Courses",
+                  "${courses.length} Courses",
                   style: TextStyle(
                     fontSize: 17,
                     color: appBackground,
@@ -43,30 +45,33 @@ class _CourseScreenState extends State<CourseScreen> {
 
             // Courses cards
             SizedBox(height: 50),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EnrolledCourseDetailsScreen(),
-                    ));
-              },
-              child: Column(
-                children: List.generate(
-                  MyCoursesJson.length,
-                  (index) {
-                    return Padding(
+            Column(
+              children: List.generate(
+                courses.length,
+                (index) {
+                  final course = courses[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              EnrolledCourseDetailsScreen(course: course),
+                        ),
+                      );
+                    },
+                    child: Padding(
                       padding: const EdgeInsets.only(bottom: 15),
                       child: CustomMyCoursesCard(
-                        image: MyCoursesJson[index]['image'],
-                        instructor: MyCoursesJson[index]['user_name'],
-                        title: MyCoursesJson[index]['title'],
-                        videoAmount: MyCoursesJson[index]['video'],
-                        percentage: MyCoursesJson[index]['percentage'],
+                        image: course.image,
+                        instructor: course.userName,
+                        title: course.title,
+                        videoAmount: course.videoAmount,
+                        percentage: course.percentage,
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             )
           ],
@@ -84,7 +89,12 @@ class _CourseScreenState extends State<CourseScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: getBody(),
+      body: Consumer<CourseProvider>(
+        builder: (context, courseProvider, child) {
+          final courses = courseProvider.courses;
+          return getBody(courses);
+        },
+      ),
     );
   }
 }

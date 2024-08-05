@@ -6,10 +6,12 @@ class CustomCategoriesButton extends StatelessWidget {
     Key? key,
     required this.title,
     this.icon,
+    required this.color,
   }) : super(key: key);
 
   final String title;
   final IconData? icon;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class CustomCategoriesButton extends StatelessWidget {
             bottom: 10.0,
           ),
           decoration: BoxDecoration(
-            color: appTeriatery,
+            color: color,
             borderRadius: BorderRadius.circular(100.0),
             boxShadow: [
               BoxShadow(

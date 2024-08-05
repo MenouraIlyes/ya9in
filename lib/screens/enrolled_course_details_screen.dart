@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:ya9in/models/course.dart';
 import 'package:ya9in/models/lesson.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_lesson_card.dart';
 import 'package:ya9in/widgets/custom_tab_view.dart';
 
 class EnrolledCourseDetailsScreen extends StatefulWidget {
-  const EnrolledCourseDetailsScreen({super.key});
+  final Course course;
+  const EnrolledCourseDetailsScreen({
+    super.key,
+    required this.course,
+  });
 
   @override
   State<EnrolledCourseDetailsScreen> createState() =>
@@ -28,11 +33,11 @@ class _EnrolledCourseDetailsScreenState
         child: Padding(
           padding: const EdgeInsets.only(bottom: 40, right: 20, left: 20),
           child: Column(children: [
-            ...List.generate(lessonList.length, (index) {
+            ...List.generate(widget.course.lessons.length, (index) {
               return Column(
                 children: [
                   CustomLessonCard(
-                    lesson: lessonList[index],
+                    lesson: widget.course.lessons[index],
                   ),
                   const SizedBox(height: 20),
                 ],
@@ -45,7 +50,7 @@ class _EnrolledCourseDetailsScreenState
       return Padding(
         padding: const EdgeInsets.all(20),
         child: Text(
-          'This is the course description. Here you can add detailed information about the course.',
+          widget.course.description,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w400,
