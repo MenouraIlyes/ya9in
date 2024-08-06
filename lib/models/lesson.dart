@@ -37,21 +37,23 @@ class Lesson {
 List<Lesson> flutterLessons = [
   Lesson(
     title: 'Setting up Flutter',
-    videoUrl: 'assets/videos/flutter1.mp4',
+    videoUrl: 'https://www.youtube.com/watch?v=VPvVD8t02U8',
     duration: 10,
     description:
         'Learn how to set up Flutter on your machine and create your first project.',
   ),
   Lesson(
     title: 'Hello World',
-    videoUrl: 'assets/videos/flutter2.mp4',
+    videoUrl:
+        'https://www.youtube.com/watch?v=RAL2RW3sSY4&list=PL6yRaaP0WPkVtoeNIGqILtRAgd3h2CNpT&index=3',
     duration: 15,
     description:
         'Create your first Flutter app with a simple Hello World example.',
   ),
   Lesson(
     title: 'Flutter Widgets',
-    videoUrl: 'assets/videos/flutter3.mp4',
+    videoUrl:
+        'https://www.youtube.com/watch?v=niAmg31m0aE&list=PL6yRaaP0WPkVtoeNIGqILtRAgd3h2CNpT&index=4',
     duration: 20,
     description: 'An overview of the most commonly used widgets in Flutter.',
   ),

@@ -66,7 +66,7 @@ List<Course> Courses = [
     title: 'Introduction to Flutter',
     userProfile: 'assets/user1.jpg',
     userName: 'John Doe',
-    price: 'Free',
+    price: '5000',
     percentage: 0.0,
     description:
         "This course is designed for beginners who want to dive into the world of Flutter. You will learn the fundamentals of Flutter, including setting up your environment, creating basic widgets, and understanding the core concepts of Flutter development. By the end of this course, you'll be able to build simple Flutter applications.",
