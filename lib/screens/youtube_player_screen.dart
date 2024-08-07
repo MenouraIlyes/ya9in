@@ -105,7 +105,7 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 10, bottom: 20),
                 child: Text(
-                  'All Lessons',
+                  'All Lessons (${widget.course.lessons.length})',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 18,
@@ -126,6 +126,7 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
                             CustomLessonCard(
                               lesson: widget.course.lessons[index],
                               course: widget.course,
+                              isEnrolled: true,
                             ),
                             const SizedBox(height: 20),
                           ],

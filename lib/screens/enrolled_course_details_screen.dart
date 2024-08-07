@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ya9in/models/course.dart';
-import 'package:ya9in/models/lesson.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_lesson_card.dart';
 import 'package:ya9in/widgets/custom_tab_view.dart';
@@ -39,6 +38,7 @@ class _EnrolledCourseDetailsScreenState
                   CustomLessonCard(
                     lesson: widget.course.lessons[index],
                     course: widget.course,
+                    isEnrolled: true,
                   ),
                   const SizedBox(height: 20),
                 ],

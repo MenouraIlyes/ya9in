@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ya9in/shared/colors.dart';
+import 'package:ya9in/widgets/filter_bottom_sheet.dart';
 
 class CustomSearchField extends StatefulWidget {
   const CustomSearchField({
@@ -78,8 +79,16 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
                 )
               ],
             ),
-            child: Container(
-              child: Icon(Icons.filter_list_alt),
+            child: GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => FilterBottomSheet(),
+                );
+              },
+              child: Container(
+                child: Icon(Icons.filter_list_alt),
+              ),
             ),
           ),
         ],

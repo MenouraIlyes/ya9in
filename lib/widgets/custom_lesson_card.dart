@@ -3,17 +3,58 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:ya9in/models/course.dart';
 import 'package:ya9in/models/lesson.dart';
-import 'package:ya9in/widgets/youtube_player_screen.dart';
+import 'package:ya9in/screens/youtube_player_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class CustomLessonCard extends StatelessWidget {
   final Lesson lesson;
   final Course course;
+  final bool isEnrolled;
   const CustomLessonCard({
     super.key,
     required this.lesson,
     required this.course,
+    this.isEnrolled = false,
   });
+
+  Widget isEnrolledWidget() {
+    return Row(
+      children: [
+        // lesson play button
+
+        Image.asset(
+          'assets/play.png',
+          height: 30,
+        ),
+
+        SizedBox(width: 15),
+
+        // lesson title and duration
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                lesson.title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                '${lesson.duration.toString()} min',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +63,17 @@ class CustomLessonCard extends StatelessWidget {
     print(videoId);
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => (YoutubePlayerScreen(
-                videoId: videoId,
-                lesson: lesson,
-                course: course,
-              )),
-            ));
+        isEnrolled
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => (YoutubePlayerScreen(
+                    videoId: videoId,
+                    lesson: lesson,
+                    course: course,
+                  )),
+                ))
+            : null;
       },
       child: Container(
         padding: EdgeInsets.all(10),
@@ -48,63 +91,65 @@ class CustomLessonCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
-          children: [
-            // lesson play button
-            lesson.isCompleted
-                ? Image.asset(
-                    'assets/play.png',
-                    height: 30,
-                  )
-                : Opacity(
-                    opacity: 0.5,
-                    child: Image.asset(
-                      'assets/not_play.png',
-                      height: 30,
-                    ),
-                  ),
-
-            SizedBox(width: 15),
-
-            // lesson title and duration
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        child: isEnrolled
+            ? isEnrolledWidget()
+            : Row(
                 children: [
-                  Text(
-                    lesson.title,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                  // lesson play button
+                  lesson.isCompleted
+                      ? Image.asset(
+                          'assets/play.png',
+                          height: 30,
+                        )
+                      : Opacity(
+                          opacity: 0.5,
+                          child: Image.asset(
+                            'assets/not_play.png',
+                            height: 30,
+                          ),
+                        ),
+
+                  SizedBox(width: 15),
+
+                  // lesson title and duration
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          lesson.title,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          '${lesson.duration.toString()} min',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Text(
-                    '${lesson.duration.toString()} min',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey,
-                    ),
-                  ),
+
+                  // lesson completed ?
+                  lesson.isCompleted
+                      ? Image.asset(
+                          'assets/check.png',
+                          height: 30,
+                        )
+                      : Opacity(
+                          opacity: 0.5,
+                          child: Image.asset(
+                            'assets/lock.png',
+                            height: 30,
+                          ),
+                        ),
                 ],
               ),
-            ),
-
-            // lesson completed ?
-            lesson.isCompleted
-                ? Image.asset(
-                    'assets/check.png',
-                    height: 30,
-                  )
-                : Opacity(
-                    opacity: 0.5,
-                    child: Image.asset(
-                      'assets/lock.png',
-                      height: 30,
-                    ),
-                  ),
-          ],
-        ),
       ),
     );
   }
