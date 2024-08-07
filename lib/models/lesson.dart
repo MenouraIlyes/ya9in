@@ -62,7 +62,7 @@ List<Lesson> flutterLessons = [
 List<Lesson> dartLessons = [
   Lesson(
     title: 'Asynchronous Programming',
-    videoUrl: 'assets/videos/dart1.mp4',
+    videoUrl: 'https://www.youtube.com/watch?v=1xipg02Wu8s',
     duration: 30,
     description: 'Learn about Futures, async, and await in Dart.',
   ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ya9in/models/course.dart';
-import 'package:ya9in/models/lesson.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_appbar.dart';
 import 'package:ya9in/widgets/custom_button.dart';
@@ -39,6 +38,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
             children: [
               CustomLessonCard(
                 lesson: widget.course.lessons[index],
+                course: widget.course,
               ),
               const SizedBox(height: 20),
             ],
@@ -100,7 +100,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       padding: const EdgeInsets.only(
                           left: 10, right: 5, top: 5, bottom: 5),
                       child: CustomCategoriesButton(
-                        title: widget.course.userName,
+                        title: widget.course.UploadedBy,
                         icon: Icons.person,
                         color: appPrimary,
                       ),
@@ -109,7 +109,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       padding: const EdgeInsets.only(
                           left: 5, right: 5, top: 5, bottom: 5),
                       child: CustomCategoriesButton(
-                        title: '68 hours',
+                        title: '${widget.course.totalDuration.toString()} min',
                         icon: Icons.watch_later,
                         color: appPrimary,
                       ),
@@ -118,7 +118,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       padding: const EdgeInsets.only(
                           left: 5, right: 5, top: 5, bottom: 5),
                       child: CustomCategoriesButton(
-                        title: '4.5 (365 reviews)',
+                        title: widget.course.averageRating.toString(),
                         icon: Icons.star,
                         color: appPrimary,
                       ),

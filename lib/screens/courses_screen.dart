@@ -64,7 +64,7 @@ class _CourseScreenState extends State<CourseScreen> {
                       padding: const EdgeInsets.only(bottom: 15),
                       child: CustomMyCoursesCard(
                         image: course.image,
-                        instructor: course.userName,
+                        instructor: course.UploadedBy,
                         title: course.title,
                         videoAmount: course.videoAmount,
                         percentage: course.percentage,

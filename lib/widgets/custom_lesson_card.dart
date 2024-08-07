@@ -1,15 +1,18 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:ya9in/models/course.dart';
 import 'package:ya9in/models/lesson.dart';
 import 'package:ya9in/widgets/youtube_player_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class CustomLessonCard extends StatelessWidget {
   final Lesson lesson;
+  final Course course;
   const CustomLessonCard({
     super.key,
     required this.lesson,
+    required this.course,
   });
 
   @override
@@ -24,6 +27,8 @@ class CustomLessonCard extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => (YoutubePlayerScreen(
                 videoId: videoId,
+                lesson: lesson,
+                course: course,
               )),
             ));
       },

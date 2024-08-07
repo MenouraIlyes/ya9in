@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ya9in/models/category.dart';
 import 'package:ya9in/models/course.dart';
 import 'package:ya9in/models/lesson.dart';
 
@@ -48,12 +49,15 @@ class CourseProvider with ChangeNotifier {
         image: 'default_image.png',
         videoAmount: 'default_video.mp4',
         title: 'Default Course',
-        userProfile: 'default_user_profile.png',
-        userName: 'Default User',
+        userProfilePicture: 'default_user_profile.png',
+        UploadedBy: 'Default User',
         price: 'Free',
         description: '',
         percentage: 0.0,
         lessons: [],
+        ratings: [],
+        averageRating: 0.0,
+        category: Category(icon: '', title: ''),
       ),
     );
   }

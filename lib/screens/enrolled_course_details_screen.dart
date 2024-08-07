@@ -38,6 +38,7 @@ class _EnrolledCourseDetailsScreenState
                 children: [
                   CustomLessonCard(
                     lesson: widget.course.lessons[index],
+                    course: widget.course,
                   ),
                   const SizedBox(height: 20),
                 ],
@@ -69,7 +70,7 @@ class _EnrolledCourseDetailsScreenState
         elevation: 0,
         backgroundColor: appWhite,
         title: Text(
-          'Course',
+          widget.course.title,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w500,

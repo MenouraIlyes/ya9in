@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ya9in/models/user_info.dart';
+import 'package:ya9in/models/user.dart';
 import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/root_app.dart';
 import 'package:ya9in/shared/colors.dart';

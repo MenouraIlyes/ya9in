@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ya9in/models/user_info.dart';
+import 'package:ya9in/models/user.dart';
 
 class UserProvider with ChangeNotifier {
   UserModel? _user;
