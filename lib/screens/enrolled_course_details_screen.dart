@@ -30,7 +30,8 @@ class _EnrolledCourseDetailsScreenState
     if (_selectedTag == 0) {
       return SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 40, right: 20, left: 20),
+          padding:
+              const EdgeInsets.only(bottom: 40, right: 20, left: 20, top: 20),
           child: Column(children: [
             ...List.generate(widget.course.lessons.length, (index) {
               return Column(
@@ -68,17 +69,15 @@ class _EnrolledCourseDetailsScreenState
       appBar: AppBar(
         toolbarHeight: 80,
         elevation: 0,
-        backgroundColor: appWhite,
+        backgroundColor: appSecondary,
         title: Text(
           widget.course.title,
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-          ),
+              fontSize: 20, fontWeight: FontWeight.w500, color: appWhite),
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: appBackground),
+          icon: Icon(Icons.arrow_back, color: appWhite),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -90,6 +89,7 @@ class _EnrolledCourseDetailsScreenState
               CustomTabView(
                 changeTab: changeTab,
                 index: _selectedTag,
+                isEnrolled: true,
               ),
             ],
           ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ya9in/datas/category_json.dart';
-import 'package:ya9in/datas/course_json.dart';
 import 'package:ya9in/providers/course_provider.dart';
 import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/screens/course_details_screen.dart';

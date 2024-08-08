@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ya9in/screens/search_result_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/filter_bottom_sheet.dart';
 
@@ -17,6 +18,52 @@ class CustomSearchField extends StatefulWidget {
 }
 
 class _CustomSearchFieldState extends State<CustomSearchField> {
+  final TextEditingController _searchController = TextEditingController();
+  List<String> selectedCategories = [];
+  String? selectedDuration;
+
+  void _navigateToSearchResultScreen(BuildContext context, String query) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          SearchResultScreen(
+              searchQuery: query,
+              categories: selectedCategories,
+              duration: selectedDuration),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 600),
+    ));
+  }
+
+  void _showFilterBottomSheet() async {
+    final result = await showModalBottomSheet<Map<String, dynamic>>(
+      context: context,
+      builder: (context) => FilterBottomSheet(
+        selectedCategories: selectedCategories,
+        selectedDuration: selectedDuration,
+      ),
+    );
+
+    if (result != null) {
+      setState(() {
+        selectedCategories = result['categories'] ?? [];
+        selectedDuration = result['duration'];
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -32,23 +79,25 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          // Search Icon
           Container(
             height: 40.0,
             width: 40.0,
             alignment: Alignment.center,
-            child: Container(
-              child: Icon(
-                Icons.search_rounded,
-                color: appBackground,
-              ),
+            child: Icon(
+              Icons.search_rounded,
+              color: appBackground,
             ),
           ),
+
+          // Search Field
           Flexible(
             child: Container(
               width: size.width,
               height: 32,
               alignment: Alignment.topCenter,
               child: TextField(
+                controller: _searchController,
                 style: TextStyle(fontSize: 15),
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
@@ -59,10 +108,17 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
                   ),
                   border: InputBorder.none,
                 ),
+                onSubmitted: (value) {
+                  if (value.isNotEmpty) {
+                    _navigateToSearchResultScreen(context, value);
+                  }
+                },
               ),
             ),
           ),
           SizedBox(width: 10.0),
+
+          // Filter Icon
           Container(
             height: 40.0,
             width: 40.0,
@@ -80,15 +136,8 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
               ],
             ),
             child: GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) => FilterBottomSheet(),
-                );
-              },
-              child: Container(
-                child: Icon(Icons.filter_list_alt),
-              ),
+              onTap: _showFilterBottomSheet,
+              child: Icon(Icons.filter_list_alt),
             ),
           ),
         ],

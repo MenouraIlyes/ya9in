@@ -5,15 +5,29 @@ import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_filter_button.dart';
 
 class FilterBottomSheet extends StatefulWidget {
-  const FilterBottomSheet({super.key});
+  final List<String> selectedCategories;
+  final String? selectedDuration;
+
+  const FilterBottomSheet({
+    super.key,
+    required this.selectedCategories,
+    required this.selectedDuration,
+  });
 
   @override
   State<FilterBottomSheet> createState() => _FilterBottomSheetState();
 }
 
 class _FilterBottomSheetState extends State<FilterBottomSheet> {
-  List<String> selectedCategories = [];
-  String? selectedDuration;
+  late List<String> selectedCategories;
+  late String? selectedDuration;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedCategories = widget.selectedCategories;
+    selectedDuration = widget.selectedDuration;
+  }
 
   void toggleCategorySelection(String categoryTitle) {
     setState(() {

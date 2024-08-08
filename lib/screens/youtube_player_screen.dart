@@ -59,17 +59,18 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
         return Scaffold(
           backgroundColor: appWhite,
           appBar: AppBar(
-            backgroundColor: appWhite,
+            backgroundColor: appSecondary,
             title: Text(
               widget.lesson.title,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
+                color: appWhite,
               ),
             ),
             centerTitle: true,
             leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: appBackground),
+              icon: Icon(Icons.arrow_back, color: appWhite),
               onPressed: () {
                 Navigator.of(context).pop();
               },

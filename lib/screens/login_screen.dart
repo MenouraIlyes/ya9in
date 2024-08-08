@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ya9in/root_app.dart';
-import 'package:ya9in/screens/home_screen.dart';
 import 'package:ya9in/screens/sign_up_screen.dart';
 import 'package:ya9in/screens/user_info_screen.dart';
 import 'package:ya9in/services/auth.dart';

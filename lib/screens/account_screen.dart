@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ya9in/datas/account_menu_json.dart';
 import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/screens/login_screen.dart';
 import 'package:ya9in/services/auth.dart';
@@ -87,7 +86,6 @@ class AccountScreen extends StatelessWidget {
   }
 
   Widget getBody(BuildContext context) {
-    List items = AccountMenuJson[2]['categories'];
     final userProvider = Provider.of<UserProvider>(context);
     final user = userProvider.user;
 
