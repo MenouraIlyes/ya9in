@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ya9in/models/course.dart';
+import 'package:ya9in/screens/review_screen.dart';
 import 'package:ya9in/shared/colors.dart';
+import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_lesson_card.dart';
 import 'package:ya9in/widgets/custom_tab_view.dart';
 
@@ -93,6 +96,55 @@ class _EnrolledCourseDetailsScreenState
               ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 1.0,
+            spreadRadius: 1.0,
+            offset: Offset(0.0, -1.0),
+          )
+        ]),
+        child: BottomAppBar(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          notchMargin: 0,
+          color: appWhite,
+          surfaceTintColor: Colors.white,
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 15,
+                left: 5,
+              ),
+              child: Column(
+                children: [
+                  // Rate the course
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: 50,
+                    child: CustomButtonBox(
+                      color: appPrimary,
+                      title: 'Rate this course',
+                      isDisabled: false,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReviewScreen(
+                                course: widget.course,
+                              ),
+                            ));
+                      },
+                      icon: Icons.star,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ]),
         ),
       ),
       body: getBody(),

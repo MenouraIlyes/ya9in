@@ -47,6 +47,7 @@ dependencies:
   cloud_firestore: ^4.14.0
   font_awesome_flutter: ^10.7.0
   youtube_player_flutter: ^9.0.1
+  flutter_pannable_rating_bar: ^2.7.2+1
 
 dev_dependencies:
   flutter_test:
