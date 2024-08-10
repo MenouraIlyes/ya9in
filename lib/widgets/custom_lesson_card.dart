@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:ya9in/models/course.dart';
 import 'package:ya9in/models/lesson.dart';
@@ -21,7 +19,6 @@ class CustomLessonCard extends StatelessWidget {
     return Row(
       children: [
         // lesson play button
-
         Image.asset(
           'assets/play.png',
           height: 30,

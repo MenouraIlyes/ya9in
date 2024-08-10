@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ya9in/models/category.dart';
+import 'package:ya9in/screens/search_result_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_button.dart';
 import 'package:ya9in/widgets/custom_filter_button.dart';
@@ -54,6 +55,16 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
       'categories': selectedCategories,
       'duration': selectedDuration,
     });
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SearchResultScreen(
+            categories: selectedCategories,
+            duration: selectedDuration,
+            searchQuery: '',
+          ),
+        ));
   }
 
   void cancelFilters() {

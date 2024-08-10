@@ -5,7 +5,6 @@ import 'package:ya9in/providers/course_provider.dart';
 import 'package:ya9in/screens/course_details_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_course_card.dart';
-import 'package:ya9in/widgets/custom_heading.dart';
 
 class SearchResultScreen extends StatefulWidget {
   final String searchQuery;
@@ -42,8 +41,8 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           course.title.toLowerCase().contains(widget.searchQuery.toLowerCase());
       final matchesCategory = widget.categories.isEmpty ||
           widget.categories.contains(course.category.title);
-      final matchesDuration = widget.duration == null ||
-          course.videoAmount.contains(widget.duration!);
+      final matchesDuration =
+          widget.duration == null || course.totalDuration == widget.duration;
 
       return matchesQuery && matchesCategory && matchesDuration;
     }).toList();

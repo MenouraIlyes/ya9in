@@ -33,7 +33,7 @@ class _CourseScreenState extends State<CourseScreen> {
 
                 // Number of courses enrolled in
                 Text(
-                  "${courses.length} Courses",
+                  "${enrolledCourses.length} Courses",
                   style: TextStyle(
                     fontSize: 17,
                     color: appBackground,
@@ -47,9 +47,9 @@ class _CourseScreenState extends State<CourseScreen> {
             SizedBox(height: 50),
             Column(
               children: List.generate(
-                courses.length,
+                enrolledCourses.length,
                 (index) {
-                  final course = courses[index];
+                  final course = enrolledCourses[index];
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(

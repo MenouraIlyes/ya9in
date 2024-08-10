@@ -57,7 +57,7 @@ class CourseProvider with ChangeNotifier {
         lessons: [],
         ratings: [],
         averageRating: 0.0,
-        category: Category(icon: '', title: ''),
+        category: Category(icon: Icons.error, title: ''),
       ),
     );
   }

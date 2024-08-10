@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ya9in/datas/category_json.dart';
+import 'package:ya9in/models/category.dart';
+import 'package:ya9in/models/course.dart';
+import 'package:ya9in/screens/category_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 
 class CustomCategoryCard extends StatelessWidget {
@@ -17,7 +20,20 @@ class CustomCategoryCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(HomePageCategoryJson.length, (index) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              List<Course> filteredCourses = Courses.where((course) {
+                return course.category.title == HomeCategories[index].title;
+              }).toList();
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CategoryScreen(
+                      courses: filteredCourses,
+                      category: HomeCategories[index],
+                    ),
+                  ));
+            },
             child: Container(
               height: size.width * .25,
               width: size.width * .25,
@@ -54,14 +70,14 @@ class CustomCategoryCard extends StatelessWidget {
                       ],
                     ),
                     child: Container(
-                      child: SvgPicture.asset(
-                        HomePageCategoryJson[index]['icon'],
-                        width: 15.0,
+                      child: Icon(
+                        HomeCategories[index].icon,
+                        color: appWhite,
                       ),
                     ),
                   ),
                   Text(
-                    HomePageCategoryJson[index]['title'],
+                    HomeCategories[index].title,
                     style: TextStyle(
                       color: appPrimary,
                       fontSize: 15.0,

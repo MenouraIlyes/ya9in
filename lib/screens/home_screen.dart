@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ya9in/datas/category_json.dart';
+import 'package:ya9in/models/category.dart';
+import 'package:ya9in/models/course.dart';
 import 'package:ya9in/providers/course_provider.dart';
 import 'package:ya9in/providers/user_provider.dart';
+import 'package:ya9in/screens/category_screen.dart';
 import 'package:ya9in/screens/course_details_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/clipper.dart';
@@ -153,7 +156,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else {
-                  final courses = courseProvider.courses;
                   return SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Padding(
@@ -161,9 +163,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           const EdgeInsets.only(left: 25, top: 10, bottom: 30),
                       child: Row(
                         children: List.generate(
-                          courses.length,
+                          featuredCourses.length,
                           (index) {
-                            final course = courses[index];
+                            final course = featuredCourses[index];
                             return Padding(
                               padding: const EdgeInsets.only(right: 10),
                               child: GestureDetector(
@@ -214,14 +216,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
                 children: List.generate(
-                  CategoryJson.length,
+                  TopCategories.length,
                   (index) {
                     return Padding(
                       padding: const EdgeInsets.only(
                           left: 10, right: 10, top: 5, bottom: 5),
-                      child: CustomCategoriesButton(
-                        title: CategoryJson[index]['title'],
-                        color: appTeriatery,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Filterd courses based on the selected category
+                          List<Course> filteredCourses =
+                              Courses.where((course) {
+                            return course.category.title ==
+                                TopCategories[index].title;
+                          }).toList();
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CategoryScreen(
+                                  courses: filteredCourses,
+                                  category: TopCategories[index],
+                                ),
+                              ));
+                        },
+                        child: CustomCategoriesButton(
+                          title: TopCategories[index].title,
+                          color: appTeriatery,
+                          icon: TopCategories[index].icon,
+                        ),
                       ),
                     );
                   },
@@ -229,14 +251,33 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Row(
                 children: List.generate(
-                  CategoryJson.length,
+                  BottomCategories.length,
                   (index) {
                     return Padding(
                       padding: const EdgeInsets.only(
                           left: 10, right: 10, top: 5, bottom: 5),
-                      child: CustomCategoriesButton(
-                        title: CategoryJson2[index]['title'],
-                        color: appTeriatery,
+                      child: GestureDetector(
+                        onTap: () {
+                          List<Course> filteredCourses =
+                              Courses.where((course) {
+                            return course.category.title ==
+                                BottomCategories[index].title;
+                          }).toList();
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CategoryScreen(
+                                  courses: filteredCourses,
+                                  category: BottomCategories[index],
+                                ),
+                              ));
+                        },
+                        child: CustomCategoriesButton(
+                          title: BottomCategories[index].title,
+                          color: appTeriatery,
+                          icon: BottomCategories[index].icon,
+                        ),
                       ),
                     );
                   },
@@ -250,7 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
         SizedBox(height: 50),
         Padding(
           padding: const EdgeInsets.only(right: 25, left: 25),
-          child: CustomTitle(title: "Design Courses"),
+          child: CustomTitle(title: "Development Courses"),
         ),
 
         // The special Courses
@@ -265,7 +306,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else {
-                  final courses = courseProvider.courses;
+                  final designCourses = courseProvider.courses
+                      .where((course) => course.category.title == 'Development')
+                      .toList();
                   return SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Padding(
@@ -273,9 +316,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           const EdgeInsets.only(left: 25, top: 10, bottom: 30),
                       child: Row(
                         children: List.generate(
-                          courses.length,
+                          designCourses.length,
                           (index) {
-                            final course = courses[index];
+                            final course = designCourses[index];
                             return Padding(
                               padding: const EdgeInsets.only(right: 10),
                               child: GestureDetector(
