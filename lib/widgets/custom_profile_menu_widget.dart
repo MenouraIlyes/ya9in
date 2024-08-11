@@ -26,11 +26,11 @@ class CustomProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: appPrimary.withOpacity(0.1),
+          color: appSecondary.withOpacity(0.8),
         ),
         child: Icon(
           icon,
-          color: appPrimary,
+          color: appWhite,
         ),
       ),
       title: Text(
@@ -38,6 +38,7 @@ class CustomProfileMenuWidget extends StatelessWidget {
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
+          color: textColor,
         ),
       ),
       trailing: endIcon
@@ -50,7 +51,7 @@ class CustomProfileMenuWidget extends StatelessWidget {
               ),
               child: Icon(
                 Icons.arrow_right_alt,
-                color: Colors.grey,
+                color: appSecondary,
               ),
             )
           : null,

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/screens/login_screen.dart';
 import 'package:ya9in/screens/profile_screen.dart';
+import 'package:ya9in/screens/settings_screen.dart';
 import 'package:ya9in/services/auth.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/clipper.dart';
@@ -179,7 +180,13 @@ class AccountScreen extends StatelessWidget {
           // settings
           CustomProfileMenuWidget(
             icon: Icons.settings,
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(),
+                  ));
+            },
             title: 'Settings',
           ),
 
