@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ya9in/datas/category_json.dart';
 import 'package:ya9in/models/category.dart';
 import 'package:ya9in/models/course.dart';

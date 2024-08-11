@@ -4,7 +4,7 @@ import 'package:ya9in/shared/colors.dart';
 class CustomTabView extends StatefulWidget {
   final Function(int) changeTab;
   final int index;
-  bool isEnrolled;
+  final bool isEnrolled;
 
   CustomTabView({
     super.key,

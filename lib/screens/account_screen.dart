@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/screens/login_screen.dart';
+import 'package:ya9in/screens/profile_screen.dart';
 import 'package:ya9in/services/auth.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/clipper.dart';
@@ -158,7 +159,13 @@ class AccountScreen extends StatelessWidget {
           // your profile
           CustomProfileMenuWidget(
             icon: Icons.person,
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(),
+                  ));
+            },
             title: 'Your Profile',
           ),
 

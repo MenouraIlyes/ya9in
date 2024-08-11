@@ -36,12 +36,21 @@ class UserProvider with ChangeNotifier {
     print("Fetching user data for: ${currentUser?.uid}");
 
     if (currentUser != null) {
+      String? email = currentUser.email;
+      String? phoneNumber = currentUser.phoneNumber;
+
       DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection('users')
           .doc(currentUser.uid)
           .get();
+
       if (userDoc.exists) {
         _user = UserModel.fromMap(userDoc.data() as Map<String, dynamic>);
+
+        // Optionally add email and phone number to your user model if needed
+        _user?.email = email!;
+        _user?.phoneNumber = phoneNumber!;
+
         notifyListeners();
       }
     }

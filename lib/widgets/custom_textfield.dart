@@ -5,9 +5,9 @@ import 'package:ya9in/shared/colors.dart';
 class CustomTextfield extends StatefulWidget {
   final TextEditingController? controller;
   final String labelText;
-  bool noIcon;
-  Function(String)? onChanged;
-  bool phoneNumber;
+  final bool noIcon;
+  final Function(String)? onChanged;
+  final bool phoneNumber;
 
   CustomTextfield({
     super.key,
