@@ -4,6 +4,7 @@ import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/screens/login_screen.dart';
 import 'package:ya9in/screens/profile_screen.dart';
 import 'package:ya9in/screens/settings_screen.dart';
+import 'package:ya9in/screens/support_screen.dart';
 import 'package:ya9in/services/auth.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/clipper.dart';
@@ -193,7 +194,13 @@ class AccountScreen extends StatelessWidget {
           // Support
           CustomProfileMenuWidget(
             icon: Icons.support,
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SupportScreen(),
+                  ));
+            },
             title: 'Support',
           ),
 
