@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ya9in/firebase_options.dart';
 import 'package:ya9in/providers/course_provider.dart';
 import 'package:ya9in/providers/lesson_provider.dart';
 import 'package:ya9in/providers/user_provider.dart';
 import 'package:ya9in/root_app.dart';
+import 'package:ya9in/screens/introduction_screen.dart';
 import 'package:ya9in/screens/login_screen.dart';
 import 'package:ya9in/services/phone_verification_provider.dart';
 
@@ -57,17 +59,39 @@ class MyApp extends StatelessWidget {
 class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
+    return FutureBuilder<bool>(
+      future: _checkIntroductionSeen(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else if (snapshot.hasData) {
-          return RootApp(); // User is signed in
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasData && snapshot.data == false) {
+          return IntroductionScreen();
         } else {
-          return LoginScreen(); // User is not signed in
+          return StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData) {
+                return RootApp(); // User is signed in
+              } else {
+                return IntroductionScreen(); // User is not signed in
+              }
+            },
+          );
         }
       },
     );
+  }
+
+  Future<bool> _checkIntroductionSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool seen = prefs.getBool('introductionSeen') ?? false;
+
+    if (!seen) {
+      await prefs.setBool('introductionSeen', true);
+    }
+
+    return seen;
   }
 }
