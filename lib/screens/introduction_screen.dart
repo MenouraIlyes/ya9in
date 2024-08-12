@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:ya9in/screens/auth_screen.dart';
 import 'package:ya9in/screens/login_screen.dart';
 import 'package:ya9in/shared/colors.dart';
 import 'package:ya9in/widgets/custom_intro.dart';
@@ -91,7 +92,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
+                                builder: (context) => AuthScreen(),
                               ));
                         },
                         child: Text(

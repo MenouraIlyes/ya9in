@@ -24,10 +24,14 @@ class CustomIntro extends StatelessWidget {
           child: Image.asset(image),
         ),
         SizedBox(height: 40),
-        Text(
-          title,
-          style: TextStyle(
-              fontSize: 22, fontWeight: FontWeight.bold, color: appPrimary),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            title,
+            style: TextStyle(
+                fontSize: 26, fontWeight: FontWeight.bold, color: appPrimary),
+            textAlign: TextAlign.center,
+          ),
         ),
         SizedBox(
           height: 20,
