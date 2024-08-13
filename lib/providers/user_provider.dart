@@ -47,9 +47,12 @@ class UserProvider with ChangeNotifier {
       if (userDoc.exists) {
         _user = UserModel.fromMap(userDoc.data() as Map<String, dynamic>);
 
-        // Optionally add email and phone number to your user model if needed
-        _user?.email = email!;
-        _user?.phoneNumber = phoneNumber!;
+        if (email != null) {
+          _user?.email = email;
+        }
+        if (phoneNumber != null) {
+          _user?.phoneNumber = phoneNumber;
+        }
 
         notifyListeners();
       }

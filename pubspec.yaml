@@ -50,6 +50,7 @@ dependencies:
   flutter_pannable_rating_bar: ^2.7.2+1
   smooth_page_indicator: ^1.2.0+3
   shared_preferences: ^2.3.1
+  flutter_native_splash: ^2.4.1
 
 dev_dependencies:
   flutter_test:

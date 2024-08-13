@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ya9in/providers/user_provider.dart';
-import 'package:ya9in/screens/login_screen.dart';
+import 'package:ya9in/screens/auth_screen.dart';
 import 'package:ya9in/screens/profile_screen.dart';
 import 'package:ya9in/screens/settings_screen.dart';
 import 'package:ya9in/screens/support_screen.dart';
@@ -82,7 +82,7 @@ class AccountScreen extends StatelessWidget {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const LoginScreen(),
+          builder: (context) => const AuthScreen(),
         ),
       );
     }
