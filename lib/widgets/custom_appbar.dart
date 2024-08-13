@@ -27,12 +27,6 @@ class _CustomAppbarState extends State<CustomAppbar> {
               decoration: BoxDecoration(
                 color: appPrimary,
                 borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: appWhite,
-                    blurRadius: 4,
-                  ),
-                ],
               ),
               child: Icon(
                 Icons.arrow_back,
@@ -54,12 +48,6 @@ class _CustomAppbarState extends State<CustomAppbar> {
               decoration: BoxDecoration(
                 color: appPrimary,
                 borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: appWhite,
-                    blurRadius: 4,
-                  ),
-                ],
               ),
               child: Icon(
                 Icons.bookmark,
